@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { Navbar,Nav,NavDropdown,Form,Button,FormControl,Jumbotron } from 'react-bootstrap';
 import Styled from 'styled-components';
 import Chihiro from './assets/chihiro014.jpg';
@@ -6,6 +6,7 @@ import Ghibli from './assets/totoro.png';
 import Data from './data.js';
 import { Link, Route, Switch} from 'react-router-dom';
 import Detail from './Detail.js';
+import axios from 'axios';
 
 
 const HeaderWrap = Styled.div`
@@ -19,6 +20,10 @@ const HeaderWrap = Styled.div`
     background-image: url(${Chihiro});
     background-size: cover;
     color:white;
+  }
+
+  .button__more{
+    margin:auto;
   }
 
 `;
@@ -35,12 +40,13 @@ const MiddleWrap =Styled.div`
 `;
 
 
-
+let stockContext=  React.createContext();
 
 
 
 function App(){
   let [goods,setGoods] = useState(Data);
+  let [stock,setStock] = useState([10,11,12,9]);
   return (
     <div className="App">
       <HeaderWrap>
@@ -75,18 +81,34 @@ function App(){
 
 
             <div className="container">
-              <div className="row">
-                {
-                goods.map( (a,i) => {
-                  return <Card goods={goods[i]} i={i}/>
+
+              <stockContext.Provider value={stock}>
+                <div className="row">
+                  {
+                  goods.map( (a,i) => {
+                    return <Card goods={goods[i]} i={i}/>
+                  })
+                }
+                </div>
+              </stockContext.Provider>
+
+              <button className="btn btn-light button__more" onClick={ ()=> {
+                axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then( ()=> {
+                  console.log('성공했어요');
                 })
-              }
-              </div>
+                .catch( ()=>{
+                  console.log('실패했어요');
+                }) 
+                //get요청하는 코드
+
+              }}>더보기</button>
+              
             </div>
           </Route>
 
           <Route path="/detail/:id"> 
-            <Detail goods={goods}/>
+            <Detail goods={goods} stock={stock} setStock={setStock}/>
           </Route>    
           <Route path="/:id">
           </Route>  
@@ -100,15 +122,22 @@ function App(){
 
 
 function Card(props){
+  let stock = useContext(stockContext);
+
   return(
       <div className="col-md-3">
         <img src={props.goods.image}></img>
         <h5 className="card__title">{props.goods.title}</h5>
         <p className="card__price">{props.goods.price}</p>
+        <p>{stock[props.i]} 개 남아있음</p>
+        <Test />
       </div>
-      
-
   )
+}
+
+function Test(props){
+  let stock = useContext(stockContext);
+  return <p> 재고 : {stock[props]}</p>
 }
 
 export default App;
