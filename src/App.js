@@ -6,7 +6,7 @@ import Ghibli from './assets/totoro.png';
 import Data from './data.js';
 import { Link, Route, Switch} from 'react-router-dom';
 import Detail from './Detail.js';
-import axios from 'axios';
+import Cart from './Cart.js';
 
 
 const HeaderWrap = Styled.div`
@@ -40,7 +40,7 @@ const MiddleWrap =Styled.div`
 `;
 
 
-let stockContext=  React.createContext();
+export let stockContext=  React.createContext(); //같은 변수값을 공유할 범위 생성
 
 
 
@@ -57,7 +57,7 @@ function App(){
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <Nav.Link><Link to="/">Home</Link></Nav.Link>
-              <Nav.Link>Cart</Nav.Link>
+              <Nav.Link><Link to="/cart">Cart</Link></Nav.Link>
               <NavDropdown title="Mypage" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Order</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Board</NavDropdown.Item>
@@ -91,27 +91,20 @@ function App(){
                 }
                 </div>
               </stockContext.Provider>
-
-              <button className="btn btn-light button__more" onClick={ ()=> {
-                axios.get('https://codingapple1.github.io/shop/data2.json')
-                .then( ()=> {
-                  console.log('성공했어요');
-                })
-                .catch( ()=>{
-                  console.log('실패했어요');
-                }) 
-                //get요청하는 코드
-
-              }}>더보기</button>
               
             </div>
           </Route>
 
           <Route path="/detail/:id"> 
+            <stockContext.Provider value={stock}>
             <Detail goods={goods} stock={stock} setStock={setStock}/>
+            </stockContext.Provider>
           </Route>    
-          <Route path="/:id">
-          </Route>  
+
+
+          <Route path="/cart">
+            <Cart />
+          </Route>
 
         </Switch>
       </HeaderWrap>
@@ -129,15 +122,12 @@ function Card(props){
         <img src={props.goods.image}></img>
         <h5 className="card__title">{props.goods.title}</h5>
         <p className="card__price">{props.goods.price}</p>
-        <p>{stock[props.i]} 개 남아있음</p>
-        <Test />
+        <p>재고 : {stock[props.i]}개 남음</p>
+
       </div>
   )
 }
 
-function Test(props){
-  let stock = useContext(stockContext);
-  return <p> 재고 : {stock[props]}</p>
-}
+
 
 export default App;

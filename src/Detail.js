@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router';
+import { Nav } from 'react-bootstrap';
 import Styled from 'styled-components';
 import './Detail.css';
 import { useEffect,useState } from 'react';
+import {stock, stockContext} from './App.js';
+import {CSSTransition} from "react-transition-group";
 
 let MiddleWrap = Styled.div`
+
+    text-align: center;
+    padding : 10px;
+
     .header__title{
         padding:20px;
         font-size:25px;
@@ -28,6 +35,10 @@ let MiddleWrap = Styled.div`
         width: 100%;
         margin: auto;
     }
+    
+    .button {
+      margin:8px;
+    }
 
 
 
@@ -41,6 +52,9 @@ function Detail(props){
   },[]);
 
     let [alert,setAlert] = useState(true);
+    let [tab,setTab] =useState(0);
+    let [sw,setSw] = useState(false);
+    
     let { id } = useParams();
     let findGoods = props.goods.find(function(goods){
         return goods.id == id
@@ -65,10 +79,26 @@ function Detail(props){
             <p></p>
             <p>{findGoods.price}</p>
             <Info stock={props.stock}/>
-            <button className="btn btn-danger" onClick={ ()=> {props.setStock()}}>주문하기</button>
-            <button className="btn btn-danger" onClick={ ()=> {history.push('/')}}>뒤로가기</button>
+            <button className="btn btn-danger button" onClick={ ()=> {props.setStock()}}>주문하기</button>
+            <button className="btn btn-danger button" onClick={ ()=> {history.push('/')}}>뒤로가기</button>
           </div>
         </div>
+
+        <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0" >
+          <Nav.Item>
+            <Nav.Link eventKey="link-0" onClick={ ()=> { setSw(false);setTab(0)}}>Review</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link-1"  onClick={ ()=> { setSw(false);setTab(1)}}>Q & A</Nav.Link>
+          </Nav.Item>
+        </Nav>
+
+
+        <CSSTransition in={sw} classNames="animation" timeout={5000}>
+        <TabContent tab={tab} setSw={setSw}/>
+        </CSSTransition>
+
+
       </div>
     </MiddleWrap>
       
@@ -76,9 +106,25 @@ function Detail(props){
   }
 
   function Info(props){
+    let stock = useContext(stockContext);
     return (
-      <p>재고 : {props.stock}</p>
+      <p>재고 : {props.stock[0]}개</p>
     )
+  }
+
+  function TabContent(props){
+    useEffect( ()=> {
+      props.setSw(true);
+    })
+   
+      if(props.tab===0){
+        return (
+        <div>0번째 내용입니다</div>)
+      }else if(props.tab===1){
+        return(
+        <div>1번째 내용입니다</div>)
+      }
+
   }
 
 
