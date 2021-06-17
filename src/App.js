@@ -7,6 +7,9 @@ import Data from './data.js';
 import { Link, Route, Switch} from 'react-router-dom';
 import Detail from './Detail.js';
 import Cart from './Cart.js';
+import ReviewHeader from './reviewPage/Header';
+import ReviewMain from './reviewPage/Main';
+import ReviewFooter from './reviewPage/Footer';
 
 
 const HeaderWrap = Styled.div`
@@ -59,7 +62,7 @@ function App(){
               <Nav.Link><Link to="/">Home</Link></Nav.Link>
               <Nav.Link><Link to="/cart">Cart</Link></Nav.Link>
               <NavDropdown title="Mypage" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Order</NavDropdown.Item>
+                <NavDropdown.Item><Link to="/review">Review</Link></NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Board</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">Q & A</NavDropdown.Item>
                 <NavDropdown.Divider />
@@ -104,6 +107,12 @@ function App(){
 
           <Route path="/cart">
             <Cart />
+          </Route>
+
+          <Route path ="/review">
+            <ReviewHeader />
+            <ReviewMain />
+            <ReviewFooter />
           </Route>
 
         </Switch>

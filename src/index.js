@@ -9,8 +9,8 @@ import {createStore} from 'redux';
 
 
 let array = [
-      {id: 0, name:'멋진신발',quan:2},
-      {id: 1, name:'지브리 인형', quan:1}
+      {id: 0, name:'키키 인형',quan:2},
+      {id: 1, name:'가오나시 인형', quan:1}
 
 ];
 
