@@ -15,13 +15,18 @@ let array = [
 ];
 
 function reducer(state = array, action){
+  if(action.type === 'type'){
+    let copy= [...state];
+    copy.push(action.data);
+    return copy
+  }
   if(action.type === 'increase'){
     let copy = [...state];
-    copy[0].quan++;
+    copy[action.data].quan++;
     return copy
   }else if(action.type ==='discrease'){
     let copy = [...state];
-    copy[0].quan--;
+    copy[action.data].quan--;
     return copy
   }else{
     return state

@@ -3,6 +3,7 @@ import Styled from 'styled-components';
 
 const HeaderWrap = Styled.div`
     .header{
+        margin-left: 20px;
         display: flex;
         font-size: 30px;
         align-items : center;

@@ -4,6 +4,7 @@ import { Nav } from 'react-bootstrap';
 import Styled from 'styled-components';
 import './Detail.css';
 import { useEffect,useState } from 'react';
+import {connect} from 'react-redux';
 import {stock, stockContext} from './App.js';
 import {CSSTransition} from "react-transition-group";
 
@@ -39,6 +40,7 @@ let MiddleWrap = Styled.div`
     .button {
       margin:8px;
     }
+
 
 
 
@@ -79,7 +81,11 @@ function Detail(props){
             <p></p>
             <p>{findGoods.price}</p>
             <Info stock={props.stock}/>
-            <button className="btn btn-danger button" onClick={ ()=> {props.setStock()}}>주문하기</button>
+            <div className="stock">
+            </div>
+            <button className="btn btn-danger button" onClick={ ()=> {
+              props.dispatch({type:'type', data: {id:findGoods.id, name:findGoods.title, quan:1}})
+              history.push('/cart')}}>주문하기</button>
             <button className="btn btn-danger button" onClick={ ()=> {history.push('/')}}>뒤로가기</button>
           </div>
         </div>
@@ -127,5 +133,11 @@ function Detail(props){
 
   }
 
+  function Detail2(state){
+    return{
+      state: state.reducer
+    }
+  }
 
-  export default Detail;
+
+  export default connect(Detail2)(Detail);

@@ -35,7 +35,7 @@ function Cart(props){
             <Table responsive>
                 <thead>
                     <tr>
-                    <th>#</th>
+                    <th>상품번호</th>
                     <th>상품명</th>
                     <th>수량</th>
                     <th>변경</th>
@@ -49,8 +49,8 @@ function Cart(props){
                                 <td>{a.id}</td>
                                 <td>{a.name}</td>
                                 <td>{a.quan}</td>
-                                <td><button className="btn btn-warning" onClick={()=>{props.dispatch({type : 'increase'})}}>+</button>{' '}
-                                <button className="btn btn-warning" onClick={ ()=>{props.dispatch({type: 'discrease'})}}>-</button>{' '}</td>
+                                <td><button className="btn btn-warning" onClick={()=>{props.dispatch({type : 'increase', data : a.id})}}>+</button>{' '}
+                                <button className="btn btn-warning" onClick={ ()=>{props.dispatch({type: 'discrease', data : a.id})}}>-</button>{' '}</td>
                                 </tr>                          
                             )
                         })
