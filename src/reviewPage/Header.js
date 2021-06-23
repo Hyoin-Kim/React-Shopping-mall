@@ -3,10 +3,12 @@ import Styled from 'styled-components';
 
 const HeaderWrap = Styled.div`
     .header{
-        margin-left: 20px;
+        margin:auto;
+        margin-left:20px;
         display: flex;
         font-size: 30px;
         align-items : center;
+        text-align: center;
         justify-content : space-between;
         height: 91px;
     }

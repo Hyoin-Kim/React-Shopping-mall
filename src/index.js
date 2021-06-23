@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
+import Data from './data.js';
  
 
 
@@ -14,17 +15,33 @@ let array = [
 
 ];
 
+
+
+
+
 function reducer(state = array, action){
   if(action.type === 'type'){
-    let copy= [...state];
-    copy.push(action.data);
-    return copy
+    let found = state.findIndex((a)=>{return a.id === action.data.id});
+    
+
+    if(found>=0)
+    {
+      let copy= [...state];
+      copy[found].quan++;
+      return copy
+
+    }else{
+      let copy= [...state];
+      copy.push(action.data);
+      return copy
+    }
+
   }
   if(action.type === 'increase'){
     let copy = [...state];
     copy[action.data].quan++;
     return copy
-  }else if(action.type ==='discrease'){
+  }else if(action.type ==='decrease'){
     let copy = [...state];
     copy[action.data].quan--;
     return copy
@@ -35,12 +52,16 @@ function reducer(state = array, action){
 
 }
 let store = createStore(reducer);
+let goods = createStore( ()=>{
+  return Data;
+})
+
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <Provider store={store}>
+    <Provider store={store} goods={goods}>
     <App />
     </Provider>
     </BrowserRouter>

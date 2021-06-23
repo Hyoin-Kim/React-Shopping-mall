@@ -40,10 +40,6 @@ let MiddleWrap = Styled.div`
     .button {
       margin:8px;
     }
-
-
-
-
 `;
 
 
@@ -78,13 +74,16 @@ function Detail(props){
           </div>
           <div className="col-md-6 mt-4 middle__title">
             <h4 className="pt-5">{findGoods.title}</h4>
-            <p></p>
-            <p>{findGoods.price}</p>
+            <p> </p>
+            <p> </p>
+            <p>판매가 : {findGoods.price}</p>
+            <p>배송비 : 2500원 / 주문시결제(선결제)</p>
+            <p>원산지 : Japan</p>
             <Info stock={props.stock}/>
             <div className="stock">
             </div>
             <button className="btn btn-danger button" onClick={ ()=> {
-              props.dispatch({type:'type', data: {id:findGoods.id, name:findGoods.title, quan:1}})
+              props.dispatch({type:'type', data: {id:findGoods.id, name:findGoods.title, price:findGoods.price, quan:1}})
               history.push('/cart')}}>주문하기</button>
             <button className="btn btn-danger button" onClick={ ()=> {history.push('/')}}>뒤로가기</button>
           </div>
