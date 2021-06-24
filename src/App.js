@@ -1,4 +1,4 @@
-import React, {useContext, useState,history} from 'react';
+import React, {useContext, useState,useRef, history} from 'react';
 import { Navbar,Nav,NavDropdown,Form,Button,FormControl,Jumbotron } from 'react-bootstrap';
 import Styled from 'styled-components';
 import Chihiro from './assets/chihiro014.jpg';
@@ -115,13 +115,15 @@ const getCurrDate = () => {
 
 
 function App(){
+  const[search,setSearch]=useState(''); 
+  const inputEl =useRef("");
 
   const [year,setYear] = useState(getCurrDate().year);
   const [month,setMonth] = useState(getCurrDate().month);
 
   let [goods,setGoods] = useState(Data);
   let [moviedata,setMovieData] = useState(MovieData);
-  let [stock,setStock] = useState([10,11,12,9]);
+  let [stock,setStock] = useState([10,11,12,9,6,4,2,15,9,3,15,17]);
 
   let history=useHistory();
 
@@ -161,7 +163,8 @@ function App(){
 
             <div className="container">
               <div class="input-group">
-                      <input placeholder="Search for..." type="text" class="form-control"/>
+                      <input placeholder="Search for..." type="text" class="form-control"
+                       onChange={event=>{setSearch(event.target.value)}}/>
                       <div class="input-group-append">
                           <button class="btn btn-secondary">search</button>
                       </div>
@@ -183,7 +186,13 @@ function App(){
               <stockContext.Provider value={stock}> 
                 <div className="row">
                   {
-                  goods.map( (a,index) => {
+                  goods.filter((val)=>{
+                  if(search ===""){
+                    return val;
+                  }else if(val.title.includes(search)){
+                    return search;
+                  }
+                  }).map( (a,index) => {
                     return <Card goods={goods[index]} index={index} key={index}
                     />
                   })

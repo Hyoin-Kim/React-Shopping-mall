@@ -83,7 +83,7 @@ function Detail(props){
             <div className="stock">
             </div>
             <button className="btn btn-danger button" onClick={ ()=> {
-              props.dispatch({type:'type', data: {id:findGoods.id, name:findGoods.title, price:findGoods.price, quan:1}})
+              props.dispatch({type:'type', data: {id:findGoods.id, name:findGoods.title, price:findGoods.price, image:findGoods.image, quan:1}})
               history.push('/cart')}}>주문하기</button>
             <button className="btn btn-danger button" onClick={ ()=> {history.push('/')}}>뒤로가기</button>
           </div>

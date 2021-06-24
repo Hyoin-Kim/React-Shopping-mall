@@ -1,7 +1,6 @@
 import React from 'react';
 import Style from 'styled-components';
-import Card from '../components/review/Card';
-import NewCard from '../components/review/NewCard';
+import {connect} from 'react-redux';
 
 
 const MainWrap = Style.div`
@@ -30,7 +29,7 @@ body{
 
 .file_manager .file .image,
 .file_manager .file .icon {
-    max-height: 180px;
+    height: 150px;
     overflow: hidden;
     background-size: cover;
     background-position: top
@@ -95,8 +94,11 @@ body{
     border-radius: .55rem;
     position: relative;
     width: 100%;
+    height:250px;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
 }
+
+
 
 a:hover {
     text-decoration:none;
@@ -106,52 +108,52 @@ a:hover {
 `;
 
 
-const Main = ({year, month, history}) => {
+const Main = (props) => {
     return (
         <MainWrap>
         <div id="main-content" class="file_manager">
             <div class="container">
                 <div class="row clearfix">
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card">
-                            <div class="file">
-                                <a href="javascript:void(0);">
-                                    <div class="hover">
-                                        <button type="button" class="btn btn-icon btn-danger">
-                                            Trash
-                                        </button>
+                    {
+                        props.state.map((a,index)=>{
+                            return(
+                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                <div class="card">
+                                    <div class="file">
+                                        <a href="javascript:void(0);">
+                                            <div class="hover">
+                                                <button type="button" class="btn btn-icon btn-danger">
+                                                    Trash
+                                                </button>
+                                            </div>
+                                            <div class="image">
+                                            {a.image ? (
+                                                    <img src={a.image} width="100%" height="100%"/>
+                                                ) : (
+                                                    <img src="https://blog.kakaocdn.net/dn/vNJ7h/btqEQtcG2gb/jV6hqgbGATSEYuKi0vJkAK/img.png" alt="img" class="img-fluid" />
+                                                )}
+
+                                            </div>
+                                            <div class="file-name">
+                                                {a.review ? (
+                                                    <p class="m-b-5 text-muted">{a.review}</p>
+                                                ):(
+                                                    <p class="m-b-5 text-muted">리뷰를 남겨보세요!</p>
+                                                )
+
+                                                }
+                                                
+                                                <small>상품명 : {a.name}<div class="date text-muted">6월 25일, 2021</div></small>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <div class="image">
-                                        <img src="https://via.placeholder.com/280x280/87CEFA/000000" alt="img" class="img-fluid" />
-                                    </div>
-                                    <div class="file-name">
-                                        <p class="m-b-5 text-muted">img21545ds.jpg</p>
-                                        <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
-                                    </div>
-                                </a>
+                                </div>
                             </div>
-                        </div>
-                    </div> 
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card">
-                            <div class="file">
-                                <a href="javascript:void(0);">
-                                    <div class="hover">
-                                        <button type="button" class="btn btn-icon btn-danger">
-                                            Trash
-                                        </button>
-                                    </div>
-                                    <div class="image">
-                                        <img src="https://via.placeholder.com/280x280/FF69B4/000000" alt="img" class="img-fluid" />
-                                    </div>
-                                    <div class="file-name">
-                                        <p class="m-b-5 text-muted">img21545ds.jpg</p>
-                                        <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                                   
+                            )
+                        })
+                    }
+                    
                 </div>
             </div>
         </div>
@@ -159,4 +161,14 @@ const Main = ({year, month, history}) => {
     );
 };
 
-export default Main;
+function Card(props){
+
+}
+
+function Review(state){
+    return{
+        state:state
+    }
+}
+
+export default connect(Review)(Main);

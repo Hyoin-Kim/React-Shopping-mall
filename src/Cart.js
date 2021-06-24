@@ -39,6 +39,7 @@ function Cart(props){
                 <thead>
                     <tr>
                     <th>상품번호</th>
+                    <th>이미지</th>
                     <th>상품명</th>
                     <th>가격</th>
                     <th>수량</th>
@@ -51,6 +52,12 @@ function Cart(props){
                             return( 
                                 <tr key={i}>
                                 <td>{a.id}</td>
+                                {a.image ? (
+                                        <td><img src={a.image} width="80" height="80"/></td>
+                                    ) : (
+                                        <td><img src="https://lh3.googleusercontent.com/proxy/dM98t07Za_P2wx_A6z-4tacbGMz0-3203z-J9X4SJCAsVrtXiflzoFdSNrVdUIfQsWP-s0Ge-e6IzHdNsB_W6O9xpnQ" width="100" height="80"/></td>
+                                    )}
+                                
                                 <td>{a.name}</td>
                                 <td>{a.price}</td>
                                 <td>{a.quan}</td>

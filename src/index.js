@@ -10,8 +10,8 @@ import Data from './data.js';
 
 
 let array = [
-      {id: 0, name:'키키 인형',quan:2},
-      {id: 1, name:'가오나시 인형', quan:1}
+      {id: 0, name:'키키 인형', price: '28,000원',quan:2, image: '',review: '질도 좋고 너무 예뻐요!'},
+      {id: 1, name:'가오나시 인형', price: '32,000원',quan:1, image:'',review:'역시 믿고 사는 지브리'}
 
 ];
 
@@ -22,8 +22,6 @@ let array = [
 function reducer(state = array, action){
   if(action.type === 'type'){
     let found = state.findIndex((a)=>{return a.id === action.data.id});
-    
-
     if(found>=0)
     {
       let copy= [...state];
