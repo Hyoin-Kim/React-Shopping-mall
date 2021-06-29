@@ -57,7 +57,6 @@ function Detail(props){
     let findGoods = props.goods.find(function(goods){
         return goods.id == id
     });
-    let findStock 
     let history = useHistory();
     return(
     <MiddleWrap>
