@@ -16,9 +16,6 @@ let array = [
 ];
 
 
-
-
-
 function reducer(state = array, action){
   if(action.type === 'type'){
     let found = state.findIndex((a)=>{return a.id === action.data.id});

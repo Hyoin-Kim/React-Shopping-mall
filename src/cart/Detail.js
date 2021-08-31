@@ -5,7 +5,7 @@ import Styled from 'styled-components';
 import './Detail.css';
 import { useEffect,useState } from 'react';
 import {connect} from 'react-redux';
-import {stock, stockContext} from './App.js';
+import {stock, stockContext} from '../App.js';
 import {CSSTransition} from "react-transition-group";
 
 let MiddleWrap = Styled.div`

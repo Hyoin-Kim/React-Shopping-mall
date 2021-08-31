@@ -5,14 +5,14 @@ import Chihiro from './assets/chihiro014.jpg';
 import Ghibli from './assets/totoro.png';
 import Data from './data.js';
 import { Link, Route, Switch, useHistory} from 'react-router-dom';
-import Detail from './Detail.js';
-import Cart from './Cart.js';
+import Detail from './cart/Detail.js';
+import Cart from './cart/Cart.js';
 import ReviewHeader from './reviewPage/Header';
 import ReviewMain from './reviewPage/Main';
 import ReviewFooter from './reviewPage/Footer';
 import Movie from './movie/Movie';
 import MovieData from './movie/movieData';
-import Order from './Order';
+import Order from './cart/Order';
 
 
 const HeaderWrap = Styled.div`
